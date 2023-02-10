@@ -23,3 +23,16 @@ The main experiments can be run by navigating to the root folder and running the
 ```python src/<experiment name>/main.py```
 
 The behavior analysis and compute expirements are included in ```.ipynb``` notebooks with instructions included.
+
+### Citation
+If you use this code, please cite the associated paper.
+```
+@inproceedings{
+jeffares2023tangos,
+title={{TANGOS}: Regularizing Tabular Neural Networks through Gradient Orthogonalization and Specialization},
+author={Alan Jeffares and Tennison Liu and Jonathan Crabb{\'e} and Fergus Imrie and Mihaela van der Schaar},
+booktitle={International Conference on Learning Representations},
+year={2023},
+url={https://openreview.net/forum?id=n6H86gW8u0d}
+}
+```
