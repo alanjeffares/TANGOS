@@ -1,10 +1,13 @@
 ## TANGOS: Regularizing Tabular Neural Networks through Gradient Orthogonalization and Specialization
+This repository contains the code associated with [our ICLR 2023 paper](https://openreview.net/forum?id=n6H86gW8u0d) where we introduce a novel regularizer for training deep neural networks. Tabular Neural Gradient Orthogonalization and Specialization (TANGOS) provides a framework for regularization in the tabular setting built on latent unit attributions. For further details, please consult the paper.
+
 
 ### Getting Started With TANGOS
-
+TODO: add getting started notebook here.
 
 ### Experiments
 **Contents**
+
 These folders are associtated with the commented experiments from the paper.
 ```
 └── src
