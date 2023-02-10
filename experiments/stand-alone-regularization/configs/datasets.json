@@ -1,0 +1,191 @@
+{
+  "communities": {
+    "type": "regression",
+    "loader": "load_communities",
+    "num_features": 122,
+    "num_outputs": 1,
+    "lr": 0.0001
+  },
+  "student": {
+    "type": "regression",
+    "loader": "load_student",
+    "num_features": 56,
+    "num_outputs": 1,
+    "lr": 0.0001
+  },
+  "bioconcentration": {
+    "type": "regression",
+    "loader": "load_bioconcentration",
+    "num_features": 45,
+    "num_outputs": 1,
+    "lr": 0.001
+  },
+  "facebook": {
+    "type": "regression",
+    "loader": "load_facebook",
+    "num_features": 21,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "wine": {
+    "type": "regression",
+    "loader": "load_wine",
+    "num_features": 11,
+    "num_outputs": 1,
+    "lr": 0.001
+  },
+  "boston": {
+    "type": "regression",
+    "loader": "load_boston",
+    "num_features": 13,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "abalone": {
+    "type": "regression",
+    "loader": "load_abalone",
+    "num_features": 9,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "skillcraft": {
+    "type": "regression",
+    "loader": "load_skillcraft",
+    "num_features": 18,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "weather": {
+    "type": "regression",
+    "loader": "load_weather",
+    "num_features": 45,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "forest": {
+    "type": "regression",
+    "loader": "load_forest",
+    "num_features": 39,
+    "num_outputs": 1,
+    "lr": 0.0001
+  },
+  "protein": {
+    "type": "regression",
+    "loader": "load_protein",
+    "num_features": 9,
+    "num_outputs": 1,
+    "lr": 0.01
+  },
+  "contraception": {
+    "type": "classification",
+    "loader": "load_contraception",
+    "num_features": 49,
+    "num_outputs": 3,
+    "lr": 0.0001
+  },
+  "vegas": {
+    "type": "classification",
+    "loader": "load_vegas",
+    "num_features": 111,
+    "num_outputs": 5,
+    "lr": 0.0001
+  },
+  "heart": {
+    "type": "classification",
+    "loader": "load_heart",
+    "num_features": 20,
+    "num_outputs": 2,
+    "lr": 0.01
+  },
+  "retinopathy": {
+    "type": "classification",
+    "loader": "load_retinopathy",
+    "num_features": 19,
+    "num_outputs": 2,
+    "lr": 0.01
+  },
+  "annealing": {
+    "type": "classification",
+    "loader": "load_annealing",
+    "num_features": 52,
+    "num_outputs": 5,
+    "lr": 0.01
+  },
+  "breast": {
+    "type": "classification",
+    "loader": "load_breast",
+    "num_features": 9,
+    "num_outputs": 2,
+    "lr": 0.01
+  },
+  "cervical": {
+    "type": "classification",
+    "loader": "load_cervical",
+    "num_features": 136,
+    "num_outputs": 5,
+    "lr": 0.01
+  },
+  "credit": {
+    "type": "classification",
+    "loader": "load_credit",
+    "num_features": 40,
+    "num_outputs": 2,
+    "lr": 0.001
+  },
+  "drug": {
+    "type": "classification",
+    "loader": "load_drug",
+    "num_features": 118,
+    "num_outputs": 7,
+    "lr": 0.0001
+  },
+  "hcv": {
+    "type": "classification",
+    "loader": "load_hcv",
+    "num_features": 12,
+    "num_outputs": 4,
+    "lr": 0.001
+  },
+  "liver": {
+    "type": "classification",
+    "loader": "load_liver",
+    "num_features": 10,
+    "num_outputs": 2,
+    "lr": 0.001
+  },
+  "tumor": {
+    "type": "classification",
+    "loader": "load_tumor",
+    "num_features": 25,
+    "num_outputs": 22,
+    "lr": 0.001
+  },
+  "soybean": {
+    "type": "classification",
+    "loader": "load_soybean",
+    "num_features": 484,
+    "num_outputs": 19,
+    "lr": 0.001
+  },
+  "australian": {
+    "type": "classification",
+    "loader": "load_australian",
+    "num_features": 55,
+    "num_outputs": 2,
+    "lr": 0.001
+  },
+  "entrance": {
+    "type": "classification",
+    "loader": "load_entrance",
+    "num_features": 38,
+    "num_outputs": 4,
+    "lr": 0.001
+  },
+  "thoracic": {
+    "type": "classification",
+    "loader": "load_thoracic",
+    "num_features": 24,
+    "num_outputs": 2,
+    "lr": 0.001
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "no_reg": {
+    "placeholder": [0]
+  },
+  "l2": {
+    "weight": [0.1, 0.01, 0.001]
+  },
+  "l1": {
+    "weight": [0.1, 0.01, 0.001]
+  },
+  "dropout": {
+    "p": [0.2, 0.5]
+  },
+  "input_noise": {
+    "std": [0.1, 0.01]
+  },
+  "batch_norm": {
+    "placeholder": [0]
+  },
+  "mixup": {
+    "alpha": [1]
+  },
+  "latent_sniper": {
+    "lambda_1": [1, 10, 100],
+    "lambda_2":[0.1, 1],
+    "param_schedule": [3],
+    "subsample": [50]
+  }
+}
