@@ -20,7 +20,7 @@
   "mixup": {
     "alpha": [1]
   },
-  "latent_sniper": {
+  "TANGOS": {
     "lambda_1": [1, 10, 100],
     "lambda_2":[0.1, 1],
     "param_schedule": [3],

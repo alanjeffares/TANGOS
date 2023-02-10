@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn import datasets
 
 
-DEVICE = 'cpu'
+DEVICE = 'cuda:0'
 
 
 def get_path(device):
@@ -159,46 +159,6 @@ def load_student(seed, train_prop=0.8, batch_size=64):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
 
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-    y_scaler = StandardScaler()
-    y_train = y_scaler.fit_transform(y_train.reshape(-1,1)).reshape(-1)
-    y_test = y_scaler.transform(y_test.reshape(-1,1)).reshape(-1)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.Tensor(y_train))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.Tensor(y_test))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
-
-def load_communities(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + 'communities.data', sep=',', header=None)
-    data = data.iloc[:, 5:]
-    data = data.replace('?', np.NaN)
-    X = data.drop(127, axis=1)
-    y = data[127]
-
-    X, y = X.to_numpy(dtype='float64'), y.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-    # fill missing values with means
-    col_mean = np.nanmean(X_train, axis=0)
-    inds = np.where(np.isnan(X_train))
-    X_train[inds] = np.take(col_mean, inds[1])
-    col_mean = np.nanmean(X_test, axis=0)
-    inds = np.where(np.isnan(X_test))
-    X_test[inds] = np.take(col_mean, inds[1])
-
-    # X_train.fillna(X_train.mean(), inplace=True)
-    # X_test.fillna(X_train.mean(), inplace=True)
     X_scaler = StandardScaler()
     X_train = X_scaler.fit_transform(X_train)
     X_test = X_scaler.transform(X_test)
@@ -387,72 +347,6 @@ def load_protein(seed, train_prop=0.8, batch_size=64):
     return loaders
 
 
-def load_contraception(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + 'cmc.data', sep=',', header=None)
-
-    X = data.drop(9, axis=1)
-    y = data[9] - 1
-    for var in [0, 1, 2, 4, 5, 6, 7, 8]:
-        one_hot = pd.get_dummies(X[var], prefix=var, drop_first=True)  # onehotencode categorical column
-        X = X.drop(var, axis=1)
-        X = X.join(one_hot)
-
-    X, y = X.to_numpy(), y.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
-
-
-def load_vegas(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + 'LasVegasTripAdvisorReviews-Dataset.csv', sep=';')
-    data = data[data['Member years'] != -1806]
-    X = data.drop('Score', axis=1)
-    for i in ['Nr. reviews', 'Nr. hotel reviews', 'Helpful votes']:
-        X[i] = np.log(X[i] + 1)
-    for var in ['User country', 'Period of stay', 'Traveler type', 'Pool', 'Gym',
-                'Tennis court', 'Spa', 'Casino', 'Free internet', 'Hotel name',
-                'User continent', 'Review month', 'Review weekday', 'Hotel stars']:
-        one_hot = pd.get_dummies(X[var], prefix=var, drop_first=True)  # onehotencode categorical column
-        X = X.drop(var, axis=1)
-        X = X.join(one_hot)
-    y = data['Score'] - 1
-
-    X, y = X.to_numpy(), y.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
-
 def load_heart(seed, train_prop=0.8, batch_size=64):
     data = pd.read_csv(get_path(DEVICE) + 'heart.dat', sep=' ', header=None)
     X = data.drop(13, axis=1)
@@ -484,73 +378,6 @@ def load_heart(seed, train_prop=0.8, batch_size=64):
     }
     return loaders
 
-def load_retinopathy(seed, train_prop=0.8, batch_size=64):
-    data_arff = arff.load(open(get_path(DEVICE) + 'messidor_features.arff'))
-    data = pd.DataFrame(data_arff['data'])
-    for i in [8, 9, 10, 11, 12, 13, 14, 15]:
-        data[i] = np.log(data[i] + 1)
-    X = data.drop(19, axis=1)
-    y = data[19]
-    for var in [0, 1, 18]:
-        one_hot = pd.get_dummies(X[var], prefix=var, drop_first=True)  # onehotencode categorical column
-        X = X.drop(var, axis=1)
-        X = X.join(one_hot)
-
-    X, y = X.to_numpy(), y.to_numpy(dtype=int)
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
-
-
-def load_annealing(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + 'anneal.data', header=None)
-    X = data.drop(38, axis=1)
-    y = data[38]
-    y = y.replace('U', '4')
-    y = y.to_numpy(dtype=int) - 1
-    continuous = [3, 4, 8, 32, 33, 34]
-    for var in range(38):
-        if var not in continuous:
-            one_hot = pd.get_dummies(X[var], prefix=var, drop_first=True)  # onehotencode categorical column
-            X = X.drop(var, axis=1)
-            X = X.join(one_hot)
-
-    X = X.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
 
 def load_breast(seed, train_prop=0.8, batch_size=64):
     data = pd.read_csv(get_path(DEVICE) + 'breast-cancer-wisconsin.data', header=None)
@@ -669,39 +496,6 @@ def load_credit(seed, train_prop=0.8, batch_size=64):
     return loaders
 
 
-def load_drug(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + "drug_consumption.data", header=None, index_col=0)
-    X = data.drop(16, axis=1)
-    y = data[16]
-    y = y.apply(lambda x: int(x[-1]))
-    for var in range(13,32):
-        if var == 16:
-          continue
-        one_hot = pd.get_dummies(X[var], prefix=var, drop_first=True)  # onehotencode categorical column
-        X = X.drop(var, axis=1)
-        X = X.join(one_hot)
-
-    X, y = X.to_numpy(), y.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
-
 def load_hcv(seed, train_prop=0.8, batch_size=64):
     data = pd.read_csv(get_path(DEVICE) + "hcvdat0.csv", index_col=0)
     y = data['Category'].apply(lambda x: int(x[0]))
@@ -732,40 +526,6 @@ def load_hcv(seed, train_prop=0.8, batch_size=64):
     }
     return loaders
 
-def load_liver(seed, train_prop=0.8, batch_size=64):
-    data = pd.read_csv(get_path(DEVICE) + 'Indian Liver Patient Dataset (ILPD).csv', header=None)
-    one_hot = pd.get_dummies(data[1], drop_first=True)  # onehotencode categorical column
-    data = data.drop(1, axis=1)
-    data = data.join(one_hot)
-    data = data.dropna()
-    y = data[10] - 1
-    X = data.drop(10, axis=1)
-    X[2] = np.log(X[2] + 1)
-    X[3] = np.log(X[3] + 1)
-    X[4] = np.log(X[4] + 1)
-    X[5] = np.log(X[5] + 1)
-    X[6] = np.log(X[6] + 1)
-
-    X, y = X.to_numpy(), y.to_numpy()
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_prop, random_state=seed)
-
-    X_scaler = StandardScaler()
-    X_train = X_scaler.fit_transform(X_train)
-    X_test = X_scaler.transform(X_test)
-
-    train_dataset = TensorDataset(torch.Tensor(X_train), torch.tensor(y_train, dtype=torch.long))
-    test_dataset = TensorDataset(torch.Tensor(X_test), torch.tensor(y_test, dtype=torch.long))
-
-    loaders = {
-        'train': train_dataset,
-
-        'test': DataLoader(test_dataset,
-                           batch_size=batch_size,
-                           shuffle=False,
-                           num_workers=1)
-    }
-    return loaders
 
 def load_tumor(seed, train_prop=0.8, batch_size=64):
     data = pd.read_csv(get_path(DEVICE) + 'primary-tumor.data', header=None)

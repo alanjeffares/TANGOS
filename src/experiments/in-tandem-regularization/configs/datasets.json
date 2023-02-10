@@ -1,11 +1,4 @@
 {
-  "communities": {
-    "type": "regression",
-    "loader": "load_communities",
-    "num_features": 122,
-    "num_outputs": 1,
-    "lr": 0.0001
-  },
   "student": {
     "type": "regression",
     "loader": "load_student",
@@ -33,13 +26,6 @@
     "num_features": 11,
     "num_outputs": 1,
     "lr": 0.001
-  },
-  "boston": {
-    "type": "regression",
-    "loader": "load_boston",
-    "num_features": 13,
-    "num_outputs": 1,
-    "lr": 0.01
   },
   "abalone": {
     "type": "regression",
@@ -76,39 +62,11 @@
     "num_outputs": 1,
     "lr": 0.01
   },
-  "contraception": {
-    "type": "classification",
-    "loader": "load_contraception",
-    "num_features": 49,
-    "num_outputs": 3,
-    "lr": 0.0001
-  },
-  "vegas": {
-    "type": "classification",
-    "loader": "load_vegas",
-    "num_features": 111,
-    "num_outputs": 5,
-    "lr": 0.0001
-  },
   "heart": {
     "type": "classification",
     "loader": "load_heart",
     "num_features": 20,
     "num_outputs": 2,
-    "lr": 0.01
-  },
-  "retinopathy": {
-    "type": "classification",
-    "loader": "load_retinopathy",
-    "num_features": 19,
-    "num_outputs": 2,
-    "lr": 0.01
-  },
-  "annealing": {
-    "type": "classification",
-    "loader": "load_annealing",
-    "num_features": 52,
-    "num_outputs": 5,
     "lr": 0.01
   },
   "breast": {
@@ -132,25 +90,11 @@
     "num_outputs": 2,
     "lr": 0.001
   },
-  "drug": {
-    "type": "classification",
-    "loader": "load_drug",
-    "num_features": 118,
-    "num_outputs": 7,
-    "lr": 0.0001
-  },
   "hcv": {
     "type": "classification",
     "loader": "load_hcv",
     "num_features": 12,
     "num_outputs": 4,
-    "lr": 0.001
-  },
-  "liver": {
-    "type": "classification",
-    "loader": "load_liver",
-    "num_features": 10,
-    "num_outputs": 2,
     "lr": 0.001
   },
   "tumor": {

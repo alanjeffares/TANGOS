@@ -10,10 +10,10 @@ import random
 import torch.nn as nn
 from torch import optim
 from sklearn.model_selection import KFold
-from losses import parameter_schedule, attr_loss, MSE
-from models import UCI_MLP
-from regularisers import l1, add_input_noise, mixup_data, mixup_criterion
-import load_data
+from src.losses import parameter_schedule, attr_loss, MSE
+from src.models import UCI_MLP
+from src.regularizers import l1, add_input_noise, mixup_data, mixup_criterion
+import src.load_data
 
 import warnings
 
@@ -37,7 +37,7 @@ def train_epoch(model, train_loader, optimiser, loss_func, params, regulariser, 
         output, _ = model(data)
         pred_loss = loss_func(output, label)
 
-        if regulariser == 'latent_sniper' and (params['lambda_1_curr'] > 0 or params['lambda_2_curr'] > 0):
+        if regulariser == 'TANGOS' and (params['lambda_1_curr'] > 0 or params['lambda_2_curr'] > 0):
             sparsity_loss, correlation_loss = attr_loss(model, data, device=device, subsample=params['subsample'])
             reg_loss = params['lambda_1_curr'] * sparsity_loss + params['lambda_2_curr'] * correlation_loss
 
@@ -137,13 +137,13 @@ def run_fold(fold_name, model, trainloader, valloader, config, config_dataset, s
     loss_func = MSE if config_dataset['type'] == 'regression' else nn.CrossEntropyLoss()
     l2_weight = config['weight'] if regulariser == 'l2' else 0
     optimiser = optim.Adam(model.parameters(), lr=config_dataset['lr'], weight_decay=l2_weight)
-    if regulariser == 'latent_sniper':
+    if regulariser == 'TANGOS':
         parameter_scheduler = parameter_schedule(config['lambda_1'], config['lambda_2'], config['param_schedule'])
     else:
         parameter_scheduler = None
     best_val_loss = np.inf; last_update = 0
     for epoch in range(EPOCHS):
-        if regulariser == 'latent_sniper':
+        if regulariser == 'TANGOS':
             lambda_1, lambda_2 = parameter_scheduler.get_reg(epoch)
             config['lambda_1_curr'] = lambda_1
             config['lambda_2_curr'] = lambda_2
@@ -168,7 +168,7 @@ def run_fold(fold_name, model, trainloader, valloader, config, config_dataset, s
     return best_val_loss, best_model, last_update
 
 def run_cv(config_dataset: dict, regulariser: str, params: dict, run_name: str, seed: int):
-    data_fetcher = getattr(load_data, config_dataset['loader'])
+    data_fetcher = getattr(src.load_data, config_dataset['loader'])
     loaders = data_fetcher(seed=0)
     dropout = params['p'] if regulariser == 'dropout' else 0
     batch_norm = True if regulariser == 'batch_norm' else False
@@ -214,7 +214,7 @@ def load_config(name):
 
 def run_experiment(seeds: list, tag: str):
     # load config files
-    config_regs, regularisers = load_config('regularisers')
+    config_regs, regularisers = load_config('regularizers')
     config_data, datasets = load_config('datasets')
 
     for seed in seeds:
