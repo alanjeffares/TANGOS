@@ -5,7 +5,7 @@ This repository contains the code associated with [our ICLR 2023 paper](https://
 
 
 ### Getting Started With TANGOS
-TODO: add getting started notebook here.
+To quickly get started with integrating TANGOS into a pytorch workflow, we have provided a handy quickstart guide. This consists of a simple MLP training routine with a drop in function that calculates and applies TANGOS regularization. This example notebook can be found in [TANGOS_quickstart.ipynb](https://github.com/alanjeffares/TANGOS/blob/main/TANGOS_quickstart.ipynb).
 
 ### Experiments
 **Setup**
