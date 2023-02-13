@@ -9,7 +9,21 @@ TODO: add getting started notebook here.
 
 ### Experiments
 **Setup**
-TODO: environment setup 
+
+Clone this repository and navigate to the root folder.
+```
+git clone https://github.com/alanjeffares/TANGOS.git
+cd TANGOS
+```
+Using conda, create and activate a new environment. 
+```
+conda create -n <environment name> pip python
+conda activate <environment name>
+```
+Then install the repository requirements.
+```
+pip install -r requirements.txt
+```
 
 **Running**
 
