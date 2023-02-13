@@ -1,0 +1,25 @@
+arff==0.9
+certifi @ file:///croot/certifi_1671487769961/work/certifi
+charset-normalizer==3.0.1
+functorch==1.13.1
+idna==3.4
+joblib==1.2.0
+numpy==1.24.2
+nvidia-cublas-cu11==11.10.3.66
+nvidia-cuda-nvrtc-cu11==11.7.99
+nvidia-cuda-runtime-cu11==11.7.99
+nvidia-cudnn-cu11==8.5.0.96
+pandas==1.5.3
+Pillow==9.4.0
+python-dateutil==2.8.2
+pytz==2022.7.1
+requests==2.28.2
+scikit-learn==1.2.1
+scipy==1.10.0
+six==1.16.0
+threadpoolctl==3.1.0
+torch==1.13.1
+torchaudio==0.13.1
+torchvision==0.14.1
+typing_extensions==4.4.0
+urllib3==1.26.14
