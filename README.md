@@ -1,11 +1,15 @@
 ## TANGOS: Regularizing Tabular Neural Networks through Gradient Orthogonalization and Specialization
+
+[![pdf](https://img.shields.io/badge/PDF-ICLR%202023-red)](https://openreview.net/forum?id=n6H86gW8u0d)
+[![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD-blue.svg)](https://github.com/alanjeffares/TANGOS/blob/main/LICENSE)
+
 ![TANGOS](figure.jpg?raw=true "TANGOS")
 
-This repository contains the code associated with [our ICLR 2023 paper](https://openreview.net/forum?id=n6H86gW8u0d) where we introduce a novel regularizer for training deep neural networks. Tabular Neural Gradient Orthogonalization and Specialization (TANGOS) provides a framework for regularization in the tabular setting built on latent unit attributions. For further details, please consult the paper.
+This repository contains the code associated with [our ICLR 2023 paper](https://openreview.net/forum?id=n6H86gW8u0d) where we introduce a novel regularizer for training deep neural networks. Tabular Neural Gradient Orthogonalization and Specialization (TANGOS) provides a framework for regularization in the tabular setting built on latent unit attributions. For further details, please read [our paper](https://openreview.net/forum?id=n6H86gW8u0d).
 
 
 ### Getting Started With TANGOS
-To quickly get started with integrating TANGOS into a pytorch workflow, we have provided a handy quickstart guide. This consists of a simple MLP training routine with a drop in function that calculates and applies TANGOS regularization. This example notebook can be found in [TANGOS_quickstart.ipynb](https://github.com/alanjeffares/TANGOS/blob/main/TANGOS_quickstart.ipynb).
+To quickly get started with integrating TANGOS into a PyTorch workflow, we have provided a handy quickstart guide. This consists of a simple MLP training routine with a drop-in function that calculates and applies TANGOS regularization. This example notebook can be found in [TANGOS_quickstart.ipynb](https://github.com/alanjeffares/TANGOS/blob/main/TANGOS_quickstart.ipynb).
 
 ### Experiments
 **Setup**
@@ -27,7 +31,7 @@ pip install -r requirements.txt
 
 **Running**
 
-These folders are associtated with the commented experiments from the paper.
+These folders are associated with the commented experiments from the paper.
 ```
 └── src
     ├── behavior-analysis            # TANGOS Behavior Analysis.
@@ -41,7 +45,7 @@ The main experiments can be run by navigating to the root folder and running the
 
 ```python src/<experiment name>/main.py```
 
-The behavior analysis and compute expirements are included in ```.ipynb``` notebooks with instructions included.
+The behavior analysis and compute experiments are included in ```.ipynb``` notebooks with instructions included.
 
 ### Citation
 If you use this code, please cite the associated paper.
