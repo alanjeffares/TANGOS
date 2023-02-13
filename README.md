@@ -8,7 +8,10 @@ This repository contains the code associated with [our ICLR 2023 paper](https://
 TODO: add getting started notebook here.
 
 ### Experiments
-**Contents**
+**Setup**
+TODO: environment setup 
+
+**Running**
 
 These folders are associtated with the commented experiments from the paper.
 ```
