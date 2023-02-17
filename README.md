@@ -50,6 +50,10 @@ The main experiments can be run by navigating to the root folder and running the
 
 ```python src/experiments/<experiment name>/main.py```
 
+Results and hyperparameters of these experiments are saved in json format to the results folder.
+
+```src/experiments/<experiment name>/results```
+
 The behavior analysis and compute experiments are included in ```.ipynb``` notebooks with instructions included.
 
 ### Citation
