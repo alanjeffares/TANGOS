@@ -1,24 +1,14 @@
+'''
+Depreciated implementation of attribution loss
+'''
+
 import torch
 import numpy as np
 import torch.nn as nn
-from functorch import jacrev
-from functorch import vmap
+
 
 def MSE(output, label):
     return nn.MSELoss()(output.squeeze(), label)
-
-
-class parameter_schedule:
-    def __init__(self, lambda_1, lambda_2, epoch):
-        self.lambda_1 = lambda_1
-        self.lambda_2 = lambda_2
-        self.switch_epoch = epoch
-
-    def get_reg(self, epoch):
-        if epoch < self.switch_epoch:
-            return 0, 0
-        else:
-            return self.lambda_1, self.lambda_2
 
 
 def cosine_similarity(w1, w2):
@@ -46,18 +36,28 @@ def kl_divergence(mu, logvar):
     return KLD
 
 
-
 def attr_loss(forward_func, data_input, device='cpu', subsample=-1):
-    ########## UPDATE functools ############
-    batch_size = data_input.shape[0]
-    def to_latent(input_):
-        _, h_out = forward_func(input_)
-        return h_out
+    # data_input = data_input.clone().detach().requires_grad_(True)
 
+    #### CHANGED THISSS
     data_input = data_input.clone().requires_grad_(True)
-    jacobian = vmap(jacrev(to_latent), randomness='same')(data_input)
-    neuron_attr = jacobian.swapaxes(0, 1)
-    h_dim = neuron_attr.shape[0]
+
+    _, h_output = forward_func(data_input)
+
+    batch_size = data_input.shape[0]
+    h_dim = h_output.shape[1]
+
+    neuron_attr = []
+
+    for neuron in range(h_dim):
+        grad_outputs = torch.nn.functional.one_hot(torch.tensor([neuron]), h_dim).repeat((batch_size, 1)).to(device)
+        grad = torch.autograd.grad(outputs=h_output, inputs=data_input,
+                                   grad_outputs=grad_outputs,
+                                   create_graph=True)[0]
+
+        neuron_attr.append(grad)
+
+    neuron_attr = torch.stack(neuron_attr)
 
     if len(neuron_attr.shape) > 3:
         # h_dim x batch_size x features
