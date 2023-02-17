@@ -19,6 +19,10 @@ Clone this repository and navigate to the root folder.
 git clone https://github.com/alanjeffares/TANGOS.git
 cd TANGOS
 ```
+Ensure PYTHONPATH is also set to the root folder.
+```
+export PYTHONPATH="/your/path/to/TANGOS"
+```
 Using conda, create and activate a new environment. 
 ```
 conda create -n <environment name> pip python
