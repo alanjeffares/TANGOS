@@ -56,6 +56,8 @@ Results and hyperparameters of these experiments are saved in json format to the
 
 The behavior analysis and compute experiments are included in ```.ipynb``` notebooks with instructions included.
 
+_Note: To run in tandem experiments with batch norm please see [our comment](https://github.com/alanjeffares/TANGOS/blob/main/src/legacy/comment.md)._
+
 ### Citation
 If you use this code, please cite the associated paper.
 ```
