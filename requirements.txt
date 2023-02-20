@@ -1,5 +1,4 @@
 arff==0.9
-certifi @ file:///croot/certifi_1671487769961/work/certifi
 charset-normalizer==3.0.1
 functorch==1.13.1
 idna==3.4
