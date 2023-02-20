@@ -33,6 +33,19 @@ Then install the repository requirements.
 pip install -r requirements.txt
 ```
 
+**Data**
+
+Datasets can be downloaded using `wget` and the `<UCISource>` described in Appendix L of the paper.
+```
+wget -P /path/to/data/folder/ https://archive.ics.uci.edu/ml/machine-
+learning-databases/<UCISource>/
+```
+Then set the path to your local data folder in `src/data_config.json`.
+```
+{"path_to_data": "path/to/data/folder/"}
+```
+
+
 **Running**
 
 These folders are associated with the commented experiments from the paper.
