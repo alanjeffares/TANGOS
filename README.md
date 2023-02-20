@@ -5,7 +5,7 @@
 
 ![TANGOS](figure.jpg?raw=true "TANGOS")
 
-This repository contains the code associated with [our ICLR 2023 paper](https://openreview.net/forum?id=n6H86gW8u0d) where we introduce a novel regularizer for training deep neural networks. Tabular Neural Gradient Orthogonalization and Specialization (TANGOS) provides a framework for regularization in the tabular setting built on latent unit attributions. For further details, please read [our paper](https://openreview.net/forum?id=n6H86gW8u0d).
+This repository contains the code associated with [our ICLR 2023 paper](https://openreview.net/forum?id=n6H86gW8u0d) where we introduce a novel regularizer for training deep neural networks. Tabular Neural Gradient Orthogonalization and Specialization (TANGOS) provides a framework for regularization in the tabular setting built on latent unit attributions. For further details, please see our paper.
 
 
 ### Getting Started With TANGOS
@@ -67,7 +67,7 @@ Results and hyperparameters of these experiments are saved in json format to the
 
 ```src/experiments/<experiment name>/results```
 
-The behavior analysis and compute experiments are included in ```.ipynb``` notebooks with instructions included.
+The behavior analysis and compute experiments are included in ```.ipynb``` notebooks with instructions included. Please note that all jupyter notebooks are self contained and designed to be run in colab by clicking the link at the top of each notebook (e.g. [![open in colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alanjeffares/TANGOS/blob/main/TANGOS_quickstart.ipynb)).
 
 _Note: To run in tandem experiments with batch norm please see [our comment](https://github.com/alanjeffares/TANGOS/blob/main/src/legacy/comment.md)._
 
