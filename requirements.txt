@@ -1,4 +1,4 @@
-arff==0.9
+liac-arff==2.5.0
 charset-normalizer==3.0.1
 functorch==1.13.1
 idna==3.4
